@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
       v.cpus = 1
     end
     #script to launch when created
-    #control.vm.provision "shell", path: "scripts/provisionS.sh"
+    control.vm.provision "shell", path: "scripts/provisionS.sh"
  end
 
   #vm 2 server worker
@@ -26,6 +26,6 @@ Vagrant.configure("2") do |config|
       v.memory = 1024
       v.cpus = 1
     end
-    #control.vm.provision "shell", path: "scripts/provisionSW.sh"
+    control.vm.provision "shell", path: "scripts/provisionSW.sh"
   end
 end
