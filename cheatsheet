@@ -1,4 +1,5 @@
-vagrant up            	# create vms
-vagrant ssh [name] 		# ssh into vm
-vagrant halt          	# shut down vms
-vagrant destroy       	# delete VMs
+vagrant up            			# create vms
+vagrant ssh [name] 				# ssh into vm
+vagrant halt          			# shut down vms
+vagrant destroy [-f]     		# delete VMs
+vagrant global-status --prune	#rm all broken vms
