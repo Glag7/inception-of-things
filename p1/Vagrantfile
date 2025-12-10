@@ -1,0 +1,29 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubunto/bionic64" #ubuntu 18.04
+
+  #vm 1 server
+  config.vm.define "glaguyonS" do |control| #vm name
+    control.vm.hostname = "glaguyonS"
+    control.vm.network "private_network", ip: "192.168.56.110"
+
+    control.vm.provider "virtualbox" do |v|
+      #change virtualbox name, id is autofilled
+      v.customize ["modifyvm", :id, "--name", "glaguyonS"]
+      v.memory = 1024
+      v.cpus = 1
+    end
+    #script to launch when created
+    #control.vm.provision "shell", path: "scripts/provisionS.sh"
+  
+  #vm 2 server worker
+  config.vm.define "glaguyonSW" do |control|
+    control.vm.hostname = "glaguyonSW"
+    control.vm.network "private_network", ip: "192.168.56.111"
+
+    control.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--name", "glaguyonSW"]
+      v.memory = 1024
+      v.cpus = 1
+    end
+    #control.vm.provision "shell", path: "scripts/provisionSW.sh"
+  end
