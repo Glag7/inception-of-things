@@ -14,7 +14,8 @@ Vagrant.configure("2") do |config|
     end
     #script to launch when created
     #control.vm.provision "shell", path: "scripts/provisionS.sh"
-  
+ end
+
   #vm 2 server worker
   config.vm.define "glaguyonSW" do |control|
     control.vm.hostname = "glaguyonSW"
@@ -27,3 +28,4 @@ Vagrant.configure("2") do |config|
     end
     #control.vm.provision "shell", path: "scripts/provisionSW.sh"
   end
+end
