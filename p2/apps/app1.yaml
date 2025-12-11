@@ -18,9 +18,6 @@ spec:
         image: nginx:alpine
         ports:
         - containerPort: 80
-        env:
-          - name : APP_NAME
-            value : "app1"
 --- #document separator
 #service, creates virtual ip with load balancing and manages pods
 apiVersion: v1
