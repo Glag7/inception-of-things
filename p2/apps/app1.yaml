@@ -1,0 +1,42 @@
+#deploy (manages pods)
+apiVersion: apps/v1
+kind: Deployment #will create and manage pods
+metadata:
+  name: app-one #name in kubernetes
+spec:
+  replicas: 1 #1 pod
+  selector:
+    matchLabels: #find pods named like that
+      app: app-one
+  template: #template for the pod
+    metadata:
+      labels:
+        app: app-one #pod name
+    spec:
+      containers:
+      - name: app-one #container name (for logs)
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        env:
+          - name : APP_NAME
+            value : "app1"
+--- #document separator
+#service, creates virtual ip with load balancing and manages pods
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-one #creates dns entry
+spec:
+  selector: #select pods with label
+    app: app-one
+  type: ClusterIP #creates virtual ip
+  ports:
+  - protocol: TCP
+    port: 80 #where to listen
+    targetPort: 80 #where to forward
+
+#client -> ingress -> service (virtual ip) -> pods -> container
+#deployment just manages pods
+#service finds pods and gives them ips
+#ingress links https to services
