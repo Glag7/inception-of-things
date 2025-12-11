@@ -8,3 +8,5 @@ vagrant reload					# when config is edited
 vagrant halt					# stop
 
 kubectl get nodes -o wide		#get all machines
+kubectl get all				#get all nodes etc.
+curl -H "Host:[app]" 192.168.56.110	#curl front page
