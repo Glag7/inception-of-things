@@ -34,7 +34,7 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 # install to system path
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
-#rm downloaded file
+# rm downloaded file
 rm kubectl
 
 #======================================
@@ -43,3 +43,16 @@ echo "=== Installing k3d ==="
 
 # download k3d installer script
 curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | TAG=v5.7.3 bash
+
+#======================================
+
+echo "=== Installing ArgoCD ==="
+
+# download bin
+curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+
+# install it
+sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+
+# rm install file
+rm argocd-linux-amd64
