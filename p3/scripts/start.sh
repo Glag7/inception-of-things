@@ -10,8 +10,8 @@ kubectl create namespace dev
 echo "installing argocd in 'argocd' namespace"
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-echo "waiting for argocd pods to be ready"
-kubectl wait --for=condition=Ready pods --all -n argocd --timeout=300s
+echo "waiting for argocd to be deployed"
+kubectl wait --for=condition=available pods deployment/argocd-server -n argocd --timeout=300s
 
 echo "=== argocd credentials ==="
 echo "login: admin"
