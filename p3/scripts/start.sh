@@ -2,23 +2,6 @@
 
 echo "creating k3d cluster"
 k3d cluster create iot \
-  --servers 1 \
-  --agents 2 \
-  --port "8888:8888@loadbalancer" \
-  --port "80:80@loadbalancer" \
-  --port "443:443@loadbalancer" \
-  --api-port 6443
-#k3d cluster create iot \ #cluster name for commands
-#  --servers 1 \
-#  --agents 2 \ # n of agents, >= 2 for load balancing
-#  --port "8888:8888@loadbalancer" \      # wil's app uses port 888
-#  					#load balancer manages traffic between nodes
-#  --port "80:80@loadbalancer" \          # argocd ui http
-#  --port "443:443@loadbalancer" \        # https
-#  --api-port 6443 #needed to control kubernetes cluster (kubectl, argocd, etc.)
-
-echo "cluster created. waiting for nodes"
-kubectl wait --for=condition=Ready nodes --all --timeout=120s
 
 echo "creating namespaces"
 kubectl create namespace argocd
@@ -65,3 +48,5 @@ argocd app create wil-playground \
 #  --dest-namespace dev \ #deploy to dev namespace
 #  --project default \ #simple config for demo
 #  --sync-policy automated #auto sync
+
+kubectl port-forward svc/wil-playground -n dev 8888:8888 2>&1 >/dev/null &
