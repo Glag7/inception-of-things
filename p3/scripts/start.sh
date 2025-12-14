@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "creating k3d cluster"
-k3d cluster create iot \
+k3d cluster create iot
 
 echo "creating namespaces"
 kubectl create namespace argocd
