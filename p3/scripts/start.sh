@@ -21,7 +21,8 @@ echo "$ARGOCD_PASSWORD"
 echo "$ARGOCD_PASSWORD" > pass.txt
 
 echo "forwarding argocd ui port on 8080"
-kubectl port-forward svc/argocd-server -n argocd 8080:443 &
+kubectl port-forward svc/argocd-server -n argocd 8080:443 2>&1 >/dev/null &
+PFA=$!
 
 while ! nc -z localhost 8080; do   #while port inst forwarded wait
   sleep 1
@@ -49,4 +50,7 @@ argocd app create wil-playground \
 #  --project default \ #simple config for demo
 #  --sync-policy automated #auto sync
 
+sleep 10
+
 kubectl port-forward svc/playground-service -n dev 8888:8888 2>&1 >/dev/null &
+PFS=$!
