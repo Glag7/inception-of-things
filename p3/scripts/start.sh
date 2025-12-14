@@ -49,4 +49,4 @@ argocd app create wil-playground \
 #  --project default \ #simple config for demo
 #  --sync-policy automated #auto sync
 
-kubectl port-forward svc/wil-playground -n dev 8888:8888 2>&1 >/dev/null &
+kubectl port-forward svc/playground-service -n dev 8888:8888 2>&1 >/dev/null &
