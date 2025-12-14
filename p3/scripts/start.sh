@@ -1,14 +1,21 @@
 #!/bin/bash
 
 echo "creating k3d cluster"
-k3d cluster create iot \ #cluster name for commands
+k3d cluster create iot \
   --servers 1 \
-  --agents 2 \ # n of agents, >= 2 for load balancing
-  --port "8888:8888@loadbalancer" \      # wil's app uses port 888
-  					#load balancer manages traffic between nodes
-  --port "80:80@loadbalancer" \          # argocd ui http
-  --port "443:443@loadbalancer" \        # https
-  --api-port 6443 #needed to control kubernetes cluster (kubectl, argocd, etc.)
+  --agents 2 \
+  --port "8888:8888@loadbalancer" \
+  --port "80:80@loadbalancer" \
+  --port "443:443@loadbalancer" \
+  --api-port 6443
+#k3d cluster create iot \ #cluster name for commands
+#  --servers 1 \
+#  --agents 2 \ # n of agents, >= 2 for load balancing
+#  --port "8888:8888@loadbalancer" \      # wil's app uses port 888
+#  					#load balancer manages traffic between nodes
+#  --port "80:80@loadbalancer" \          # argocd ui http
+#  --port "443:443@loadbalancer" \        # https
+#  --api-port 6443 #needed to control kubernetes cluster (kubectl, argocd, etc.)
 
 echo "cluster created. waiting for nodes"
 kubectl wait --for=condition=Ready nodes --all --timeout=120s
@@ -44,10 +51,17 @@ argocd login localhost:8080 --username admin --password "$ARGOCD_PASSWORD" --ins
 
 #argo will monitor this repo
 argocd repo add https://github.com/Glag7/inception-of-things-test-app-glaguyon.git
-argocd app create wil-playground \ #name in argocd ui
-  --repo https://github.com/Glag7/inception-of-things-test-app-glaguyon.git \ #repo to monitor
-  --path manifest/app \ #path in repo
-  --dest-server https://kubernetes.default.svc \ #use current cluster
-  --dest-namespace dev \ #deploy to dev namespace
-  --project default \ #simple config for demo
-  --sync-policy automated #auto sync
+argocd app create wil-playground \
+  --repo https://github.com/Glag7/inception-of-things-test-app-glaguyon.git \
+  --path manifest/app \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace dev \
+  --project default \
+  --sync-policy automated
+#argocd app create wil-playground \ #name in argocd ui
+#  --repo https://github.com/Glag7/inception-of-things-test-app-glaguyon.git \ #repo to monitor
+#  --path manifest/app \ #path in repo
+#  --dest-server https://kubernetes.default.svc \ #use current cluster
+#  --dest-namespace dev \ #deploy to dev namespace
+#  --project default \ #simple config for demo
+#  --sync-policy automated #auto sync
