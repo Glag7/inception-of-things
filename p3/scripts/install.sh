@@ -56,3 +56,6 @@ sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
 
 # rm install file
 rm argocd-linux-amd64
+
+#i hate groups
+sudo reboot
