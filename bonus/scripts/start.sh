@@ -3,15 +3,7 @@
 echo "=== setting up gitLab ==="
 
 # add gitLab to hosts
-HENTRY="127.0.0.1 gitlab.k3d.local"
-HFILE="/etc/hosts"
-
-if grep -q "$HENTRY" "$HFILE"; then
-	echo -n
-else
-    echo "Adding $HENTRY to $HFILE"
-    echo "$HENTRY" | sudo tee -a "$HFILE"
-fi
+echo "127.0.0.1 gitlab.k3d.local" | sudo tee -a /etc/hosts
 
 echo "creating namespace gitlab"
 kubectl create namespace gitlab 2>/dev/null
