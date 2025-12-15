@@ -7,6 +7,7 @@ HENTRY="127.0.0.1 gitlab.k3d.local"
 HFILE="/etc/hosts"
 
 if grep -q "$HENTRY" "$HFILE"; then
+	echo -n
 else
     echo "Adding $HENTRY to $HFILE"
     echo "$HENTRY" | sudo tee -a "$HFILE"
