@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #get passwd
-GITLAB_PASSWORD=$(sudo kubectl get secret gitlab-gitlab-initial-root-password -n gitlab -o jsonpath="{.data.password}" | base64 -d)
+GITLAB_PASSWORD=$(kubectl get secret gitlab-gitlab-initial-root-password -n gitlab -o jsonpath="{.data.password}" | base64 -d)
 
 #file used for auto login features
-echo "machine gitlab.k3d.gitlab.com
+echo "machine gitlab.k3d.local
 login root
 password ${GITLAB_PASSWORD}"> ~/.netrc
 sudo chmod 600 ~/.netrc
