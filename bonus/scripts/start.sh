@@ -21,7 +21,7 @@ helm upgrade --install gitlab gitlab/gitlab \
   --timeout 600s
 
 echo "waiting for gitlab"
-kubectl wait --for=condition=ready --timeout=600s pod -l app=webservice -n gitlab
+kubectl wait --for=condition=ready --timeout=1200s pod -l app=webservice -n gitlab
 
 # get gitlab password
 echo "url: http://gitlab.k3d.local"
