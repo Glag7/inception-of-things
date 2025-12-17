@@ -23,10 +23,11 @@ git clone http://${GITLAB_HOST}/root/test.git gitlab_repo || {
 git clone https://github.com/Glag7/inception-of-things-test-app-glaguyon.git github_repo
 
 mv github_repo/manifest gitlab_repo/
+sed -i 's/name: playground-service/name: playground-service2/g' gitlab_repo/manifest/app/wil.yaml
+
 rm -rf github_repo/
 
 cd gitlab_repo
-
 git config --global user.email "root@root.com"
 git config --global user.name "root"
 
