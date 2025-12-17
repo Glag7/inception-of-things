@@ -24,6 +24,8 @@ git clone https://github.com/Glag7/inception-of-things-test-app-glaguyon.git git
 
 mv github_repo/manifest gitlab_repo/
 sed -i 's/name: playground-service/name: playground-service2/g' gitlab_repo/manifest/app/wil.yaml
+sed -i 's/name: playground-app/name: playground-app2/g' gitlab_repo/manifest/app/wil.yaml
+sed -i 's/app: playground-app/app: playground-app2/g' gitlab_repo/manifest/app/wil.yaml
 
 rm -rf github_repo/
 
@@ -50,4 +52,4 @@ argocd app create wil-playground2 \
 echo "Waiting for wil-playground2 service to be created..."
 sleep 30
 
-kubectl port-forward svc/wil-playground2 8889:8888 -n dev 2>&1 >/dev/null &
+kubectl port-forward svc/playground-service2 8889:8888 -n dev 2>&1 >/dev/null &
